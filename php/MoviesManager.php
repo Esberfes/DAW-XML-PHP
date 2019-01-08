@@ -24,15 +24,16 @@ class MoviesManager {
     public function add_movie($title, $sinopsis, $year, $duration, $image) {
         $id = $this->get_next_id();
 
-            $movie = $this->xml_object->addChild('movie');
+        $movie = $this->xml_object->addChild('movie');
 
-			$movie->addChild('id' , $id);
-			$movie->addChild('title' , $title);
-			$movie->addChild('sinopsis' , $sinopsis);
-			$movie->addChild('year' , $year);
-            $movie->addChild('duration' , $duration);
-            $movie->addChild('image' , $image);
-            $this->save();
+        $movie->addChild('id' , $id);
+        $movie->addChild('title' , $title);
+        $movie->addChild('sinopsis' , $sinopsis);
+        $movie->addChild('year' , $year);
+        $movie->addChild('duration' , $duration);
+        $movie->addChild('image' , $image);
+
+        $this->save();
     }
 
     private function save() {
@@ -61,9 +62,12 @@ class MoviesManager {
 
     public function delete_by_id($id) {
         $movie = $this->get_movie_by_id($id);
+
         if(!$movie) return;
+
         $dom = dom_import_simplexml($movie);
         $dom->parentNode->removeChild($dom);
+
         $this->save();
     }
 
@@ -140,14 +144,17 @@ class MoviesManager {
     }
 
     private function process_request() {
+
         if(isset($_POST['new_movie'])) {
             $title = $_POST['title'];
             $sinopsis = $_POST['sinopsis'];
             $year = $_POST['year'];
             $duration = $_POST['duration'];
             $image = $_POST['image'];
+
             $this->add_movie($title, $sinopsis, $year, $duration, $image);
         }
+
         if(isset($_POST['edit_movie'])) {
             $id = $_POST['id'];
             $title = $_POST['title'];
@@ -170,6 +177,7 @@ class MoviesManager {
 
         if(isset($_POST['delete_movie'])) {
             $id = $_POST['id'];
+            
             $this->delete_by_id($id);
         }
     }

@@ -11,7 +11,7 @@ $manager = new MoviesManager("movies.xml");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <?php LayoutBuilder::get_styles(); ?>
-    <title>Simple XML</title>
+    <title>Manger</title>
   </head>
   <body>
     <?php LayoutBuilder::get_the_nav("manager"); ?>
